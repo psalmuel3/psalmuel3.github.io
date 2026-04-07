@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Samuel Korede Ogbara — Full-Stack Developer & Freelancer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <header class="nav-header" id="navHeader">
+    <nav class="nav container">
+      <a class="nav-logo" href="#hero">SO.</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact" class="nav-cta">Hire Me</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- ── MOBILE MENU ── -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Hire Me</a></li>
+    </ul>
+  </div>
+
+  <main>
+
+    <!-- ══════════════════════════════
+         HERO
+    ══════════════════════════════ -->
+    <section id="hero" class="hero">
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="container hero-content">
+        <p class="hero-greeting">Hello, I'm</p>
+        <h1 class="hero-name">Samuel <span class="gradient-text">Ogbara</span></h1>
+        <p class="hero-title">
+          <span class="typed" id="typed"></span><span class="cursor">|</span>
+        </p>
+        <p class="hero-desc">
+          Architecting the Logic. Polishing the Experience.
+        </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn btn-primary">View My Work</a>
+          <a href="#contact" class="btn btn-outline">Hire Me</a>
+        </div>
+        <div class="hero-scroll" aria-hidden="true">
+          <span>scroll</span>
+          <div class="scroll-line"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════
+         ABOUT
+    ══════════════════════════════ -->
+    <section id="about" class="about section">
+      <div class="container">
+        <p class="section-label reveal">About</p>
+        <h2 class="section-title reveal">A bit about me</h2>
+
+        <div class="about-grid">
+          <div class="about-visual reveal">
+            <div class="avatar-card">
+              <div class="avatar-ring">
+                <div class="avatar-inner">SO</div>
+              </div>
+              <div class="availability-badge">
+                <span class="dot"></span> Available for work
+              </div>
+            </div>
+          </div>
+
+          <div class="about-text reveal">
+            <p>
+              I'm a <strong>Full-Stack Developer</strong> and
+              <strong>Freelancer</strong> with a passion for building products that are
+              not just functional, but delightful to use. I specialise in modern
+              JavaScript ecosystems and love turning complex problems into simple,
+              beautiful solutions.
+            </p>
+            <p>
+              I architect robust backends and craft polished frontends — recently
+              delivering a full-featured trucking management system from the ground up.
+              I thrive working remotely with clients to bring their vision to life,
+              from initial concept through to deployment.
+            </p>
+
+            <div class="about-stats">
+              <div class="stat">
+                <span class="stat-num">3+</span>
+                <span class="stat-label">Years Experience</span>
+              </div>
+              <div class="stat">
+                <span class="stat-num">20+</span>
+                <span class="stat-label">Projects Delivered</span>
+              </div>
+              <div class="stat">
+                <span class="stat-num">10+</span>
+                <span class="stat-label">Happy Clients</span>
+              </div>
+            </div>
+
+            <div class="about-actions">
+              <a href="#contact" class="btn btn-primary">Let's Talk</a>
+              <a href="#" class="btn btn-ghost" download>Download CV</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════
+         PROJECTS
+    ══════════════════════════════ -->
+    <section id="projects" class="projects section">
+      <div class="container">
+        <p class="section-label reveal">Work</p>
+        <h2 class="section-title reveal">Featured Projects</h2>
+
+        <div class="projects-grid">
+
+          <article class="project-card reveal">
+            <div class="project-thumb" style="--card-from:#6366f1;--card-to:#a855f7">
+              <span class="project-thumb-label">TMS</span>
+            </div>
+            <div class="project-body">
+              <h3>Transport Management System</h3>
+              <p>A full-featured trucking TMS dashboard — load dispatch, driver management, real-time scheduling, invoicing, and Firebase integration.</p>
+              <div class="project-tags">
+                <span>SolidJS</span><span>TypeScript</span><span>Firebase</span><span>Panda CSS</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn-link">Live Demo ↗</a>
+                <a href="#" class="btn-link muted">GitHub ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-thumb" style="--card-from:#0ea5e9;--card-to:#6366f1">
+              <span class="project-thumb-label">SaaS</span>
+            </div>
+            <div class="project-body">
+              <h3>SaaS Analytics Dashboard</h3>
+              <p>A multi-tenant analytics platform with real-time data visualisation, role-based access control, and Stripe subscription billing.</p>
+              <div class="project-tags">
+                <span>React</span><span>Node.js</span><span>PostgreSQL</span><span>Stripe</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn-link">Live Demo ↗</a>
+                <a href="#" class="btn-link muted">GitHub ↗</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-thumb" style="--card-from:#10b981;--card-to:#0ea5e9">
+              <span class="project-thumb-label">PWA</span>
+            </div>
+            <div class="project-body">
+              <h3>Mobile-First Progressive Web App</h3>
+              <p>A responsive PWA featuring offline support, push notifications, and a custom design system built entirely from scratch.</p>
+              <div class="project-tags">
+                <span>Next.js</span><span>Tailwind CSS</span><span>PWA</span><span>Supabase</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn-link">Live Demo ↗</a>
+                <a href="#" class="btn-link muted">GitHub ↗</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="projects-more reveal">
+          <a href="https://github.com/psalmuel3" target="_blank" rel="noopener" class="btn btn-outline">View All Projects on GitHub ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════
+         SKILLS
+    ══════════════════════════════ -->
+    <section id="skills" class="skills section">
+      <div class="container">
+        <p class="section-label reveal">Expertise</p>
+        <h2 class="section-title reveal">Skills & Technologies</h2>
+
+        <div class="skills-grid">
+          <div class="skills-group reveal">
+            <div class="skills-group-icon">⚡</div>
+            <h3>Frontend</h3>
+            <div class="skill-tags">
+              <span>HTML5</span>
+              <span>CSS3</span>
+              <span>JavaScript (ES6+)</span>
+              <span>TypeScript</span>
+              <span>React</span>
+              <span>SolidJS</span>
+              <span>Next.js</span>
+              <span>Tailwind CSS</span>
+              <span>Panda CSS</span>
+              <span>Figma</span>
+            </div>
+          </div>
+
+          <div class="skills-group reveal">
+            <div class="skills-group-icon">🛠</div>
+            <h3>Backend</h3>
+            <div class="skill-tags">
+              <span>Node.js</span>
+              <span>Express</span>
+              <span>REST APIs</span>
+              <span>GraphQL</span>
+              <span>Firebase</span>
+              <span>Supabase</span>
+              <span>PostgreSQL</span>
+              <span>MongoDB</span>
+            </div>
+          </div>
+
+          <div class="skills-group reveal">
+            <div class="skills-group-icon">🔧</div>
+            <h3>Tools & Other</h3>
+            <div class="skill-tags">
+              <span>Git & GitHub</span>
+              <span>Docker</span>
+              <span>CI/CD</span>
+              <span>Vitest</span>
+              <span>Playwright</span>
+              <span>Vercel</span>
+              <span>Linux</span>
+              <span>Agile / Scrum</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════
+         EXPERIENCE
+    ══════════════════════════════ -->
+    <section id="experience" class="experience section">
+      <div class="container">
+        <p class="section-label reveal">Background</p>
+        <h2 class="section-title reveal">Experience</h2>
+
+        <div class="timeline">
+
+          <div class="timeline-item reveal">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta">
+                <span class="timeline-date">2024 — 2026</span>
+                <span class="timeline-badge freelance">Freelance</span>
+              </div>
+              <h3>Full-Stack Developer</h3>
+              <p class="timeline-company">Trucking Development · Remote</p>
+              <p>Designed and built a comprehensive Transportation Management System (TMS) from the ground up — covering load dispatch, driver management, real-time scheduling, invoicing, carrier vetting, and Firebase integration.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════
+         CONTACT
+    ══════════════════════════════ -->
+    <section id="contact" class="contact section">
+      <div class="container">
+        <p class="section-label reveal">Get in touch</p>
+        <h2 class="section-title reveal">Let's Work Together</h2>
+        <p class="contact-desc reveal">
+          Have a project in mind or just want to say hi? I'd love to hear from you.
+        </p>
+
+        <div class="contact-grid">
+          <div class="contact-info reveal">
+            <a class="contact-item" href="mailto:skogbarao3@gmail.com">
+              <span class="contact-icon">✉</span>
+              <div>
+                <p class="contact-label">Email</p>
+                <span>skogbarao3@gmail.com</span>
+              </div>
+            </a>
+            <a class="contact-item" href="https://www.linkedin.com/in/samuel-ogbara-80ba3b3b7/" target="_blank" rel="noopener">
+              <span class="contact-icon">in</span>
+              <div>
+                <p class="contact-label">LinkedIn</p>
+                <span>linkedin.com/in/samuel-ogbara</span>
+              </div>
+            </a>
+            <a class="contact-item" href="https://github.com/psalmuel3" target="_blank" rel="noopener">
+              <span class="contact-icon">&lt;/&gt;</span>
+              <div>
+                <p class="contact-label">GitHub</p>
+                <span>github.com/psalmuel3</span>
+              </div>
+            </a>
+          </div>
+
+          <form class="contact-form reveal" id="contactForm" novalidate>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-full">
+              <span class="btn-text">Send Message</span>
+              <span class="btn-success" hidden>Message Sent ✓</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="container">
+      <a class="footer-logo" href="#hero">SO.</a>
+      <p>Designed & built by <span class="gradient-text">Samuel Korede Ogbara</span></p>
+      <p class="footer-sub">Open to opportunities worldwide · 2026</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
