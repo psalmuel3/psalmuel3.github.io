@@ -60,6 +60,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: geometricPrecision;
   cursor: none;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: contain;
 }
 
 /* SCROLLBAR */
@@ -108,6 +110,49 @@ a { color: inherit; text-decoration: none; }
   .cursor-dot, .cursor-ring { display: none; }
   body { cursor: auto; }
   a, button, input, textarea, .btn, .filter-tab { cursor: pointer !important; }
+
+  /* Replace hover-driven effects with a slow autoplay so cards feel alive */
+  .disc-card::after,
+  .project-card::after,
+  .skills-group::after {
+    animation: shineLoop 7s ease-in-out infinite;
+  }
+  /* Stagger so all cards don't shine in sync */
+  .disc-grid > :nth-child(2)::after  { animation-delay: 2.3s; }
+  .disc-grid > :nth-child(3)::after  { animation-delay: 4.6s; }
+
+  .projects-grid > :nth-child(2)::after { animation-delay: 1.2s; }
+  .projects-grid > :nth-child(3)::after { animation-delay: 2.4s; }
+  .projects-grid > :nth-child(4)::after { animation-delay: 3.6s; }
+  .projects-grid > :nth-child(5)::after { animation-delay: 4.8s; }
+  .projects-grid > :nth-child(6)::after { animation-delay: 6s; }
+
+  .skills-grid > :nth-child(2)::after { animation-delay: 1.75s; }
+  .skills-grid > :nth-child(3)::after { animation-delay: 3.5s; }
+  .skills-grid > :nth-child(4)::after { animation-delay: 5.25s; }
+
+  /* Photo cards: slow ken-burns drift so they don't sit static */
+  .project-thumb.has-media img {
+    animation: kenBurns 14s ease-in-out infinite alternate;
+  }
+
+  /* Tap feedback on cards (compensates for no :hover) */
+  .project-card:active,
+  .disc-card:active,
+  .skills-group:active,
+  .contact-item:active {
+    border-color: var(--accent-line);
+    transition: border-color 0.15s, transform 0.15s;
+  }
+}
+
+@keyframes shineLoop {
+  0%, 25% { transform: translateX(-150%); }
+  65%, 100% { transform: translateX(160%); }
+}
+@keyframes kenBurns {
+  0%   { transform: scale(1) translateX(0); }
+  100% { transform: scale(1.05) translateX(-1%); }
 }
 
 /* Scroll progress (top bar) */
@@ -819,11 +864,12 @@ a { color: inherit; text-decoration: none; }
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
   width: 80%;
   height: 100%;
   background: linear-gradient(110deg, transparent 30%, rgba(127,255,0,0.16) 50%, transparent 70%);
-  transition: left 1s var(--ease-out);
+  transform: translateX(-130%);
+  transition: transform 1s var(--ease-out);
   pointer-events: none;
   z-index: 0;
 }
@@ -834,7 +880,7 @@ a { color: inherit; text-decoration: none; }
     0 24px 50px -20px rgba(0,0,0,0.8),
     0 0 60px -20px var(--accent-glow);
 }
-.disc-card:hover::after { left: 120%; }
+.disc-card:hover::after { transform: translateX(160%); }
 .disc-card > * { position: relative; z-index: 1; }
 
 .disc-num {
@@ -953,11 +999,12 @@ a { color: inherit; text-decoration: none; }
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
   width: 70%;
   height: 100%;
   background: linear-gradient(110deg, transparent 30%, rgba(127,255,0,0.16) 50%, transparent 70%);
-  transition: left 1s var(--ease-out);
+  transform: translateX(-150%);
+  transition: transform 1s var(--ease-out);
   pointer-events: none;
   z-index: 2;
 }
@@ -968,7 +1015,7 @@ a { color: inherit; text-decoration: none; }
     0 30px 60px -20px rgba(0,0,0,0.85),
     0 0 80px -30px var(--accent-glow);
 }
-.project-card:hover::after { left: 120%; }
+.project-card:hover::after { transform: translateX(160%); }
 
 .project-thumb {
   height: 210px;
@@ -1227,11 +1274,12 @@ a { color: inherit; text-decoration: none; }
   content: '';
   position: absolute;
   top: 0;
-  left: -100%;
+  left: 0;
   width: 70%;
   height: 100%;
   background: linear-gradient(110deg, transparent 30%, rgba(127,255,0,0.14) 50%, transparent 70%);
-  transition: left 1s var(--ease-out);
+  transform: translateX(-150%);
+  transition: transform 1s var(--ease-out);
   pointer-events: none;
   z-index: 0;
 }
@@ -1239,7 +1287,7 @@ a { color: inherit; text-decoration: none; }
   border-color: var(--accent-line);
   transform: translateY(-4px);
 }
-.skills-group:hover::after { left: 120%; }
+.skills-group:hover::after { transform: translateX(160%); }
 
 .skills-head {
   display: flex;
@@ -1780,7 +1828,39 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (max-width: 768px) {
-  :root { --section-gap: 84px; --nav-h: 64px; }
+  :root {
+    --section-gap: 60px;
+    --nav-h: 60px;
+    --gloss-shadow: 0 8px 22px -10px rgba(0,0,0,0.65);
+  }
+
+  /* Let native momentum scrolling take over on touch */
+  html { scroll-behavior: auto; }
+
+  /* Stop infinite CSS animations — these force paint on every frame */
+  .avatar-ring,
+  .avatar-inner,
+  .thumb-frame > .ring {
+    animation: none;
+  }
+  .avatar-ring {
+    background: conic-gradient(from 90deg, var(--accent), transparent 35%, transparent 65%, var(--accent));
+  }
+
+  /* Lighter nav blur for cheaper scroll repaints */
+  .nav-header.scrolled {
+    backdrop-filter: blur(10px);
+    background: rgba(0,0,0,0.88);
+  }
+
+  /* Drop the radial-dot hero pattern on mobile */
+  .hero::before { display: none; }
+
+  /* Faster, smaller reveal animation */
+  .reveal {
+    transition-duration: 0.5s;
+    transform: translateY(18px);
+  }
 
   .container { padding: 0 20px; }
   .nav-links { display: none; }
@@ -1810,6 +1890,15 @@ a { color: inherit; text-decoration: none; }
   .timeline-card { padding: 22px; }
   .contact-form  { padding: 28px 22px; }
   .contact-item  { padding: 18px 44px 18px 18px; }
+  .project-body  { padding: 22px 20px; }
+
+  /* Trim the hero vertical padding so the section doesn't dominate */
+  .hero-content { padding-top: 24px; padding-bottom: 60px; }
+  .hero-meta { gap: 22px; margin-top: 36px; padding-top: 24px; }
+  .hero-desc { margin-bottom: 30px; }
+  .about-stats { padding: 24px 0; margin: 28px 0; gap: 20px; }
+  .stat-num { font-size: 1.7rem; }
+  .education-row { margin-top: 36px; padding-top: 32px; }
 
   .timeline::before { left: 15px; }
   .timeline-node { width: 30px; height: 30px; }
