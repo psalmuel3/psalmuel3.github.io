@@ -1,0 +1,14 @@
+node_modules/
+package.json
+package-lock.json
+process-photo.js
+.claude/
+
+# Asset sources (raw / unprocessed) - exclude
+assets/Use this.png
+assets/IMG_*.jpg
+assets/IMG_*.jpeg
+assets/IMG_*.png
+assets/TraxQ.png
+assets/Flyer.png
+assets/1000522977.jpg

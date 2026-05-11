@@ -45,14 +45,14 @@ const isTouch = window.matchMedia('(hover: none)').matches;
   }, { passive: true });
 
   function frame() {
-    // Dot snaps almost instantly; ring lags smoothly
-    dotX += (mx - dotX) * 0.65;
-    dotY += (my - dotY) * 0.65;
-    rx += (mx - rx) * 0.22;
-    ry += (my - ry) * 0.22;
+    // Dot snaps almost instantly; ring trails faster than before
+    dotX += (mx - dotX) * 0.75;
+    dotY += (my - dotY) * 0.75;
+    rx += (mx - rx) * 0.38;
+    ry += (my - ry) * 0.38;
 
-    dot.style.transform  = `translate3d(${dotX - 3}px, ${dotY - 3}px, 0)`;
-    ring.style.transform = `translate3d(${rx - 19}px, ${ry - 19}px, 0)`;
+    dot.style.transform  = `translate3d(${dotX - 2.5}px, ${dotY - 2.5}px, 0)`;
+    ring.style.transform = `translate3d(${rx - 13}px, ${ry - 13}px, 0)`;
 
     // Keep rAF alive while still settling
     if (Math.abs(mx - rx) > 0.4 || Math.abs(my - ry) > 0.4) {
@@ -215,31 +215,23 @@ const isTouch = window.matchMedia('(hover: none)').matches;
 })();
 
 // ════════════════════════════════════════════
-// MARQUEE — build & duplicate (ticker style)
+// MARQUEE — build & duplicate (single-word ticker)
 // ════════════════════════════════════════════
 (function initMarquee() {
   const track = $('#marqueeTrack');
   if (!track) return;
 
   const items = [
-    { tag: 'CODE',   label: 'Full-Stack Engineering' },
-    { tag: 'DESIGN', label: 'Brand & Visual Identity' },
-    { tag: 'ECOM',   label: 'Shopify Storefronts' },
-    { tag: 'SEO',    label: 'Search & Discoverability' },
-    { tag: 'SHIP',   label: 'Production Web Apps' },
-    { tag: 'CRAFT',  label: 'Polished Interfaces' },
+    'Design', 'Develop', 'Shopify', 'Firebase',
+    'Ship', 'Polish', 'React', 'Next.js',
+    'Figma', 'SEO', 'Brand', 'Craft',
   ];
 
   const build = () =>
-    items.map(({ tag, label }) =>
-      `<span class="marquee-item">
-         <span class="marquee-tag">${tag}</span>
-         <span class="marquee-label">${label}</span>
-         <span class="marquee-star">✦</span>
-       </span>`
+    items.map((label) =>
+      `<span class="marquee-item"><span class="marquee-label">${label}</span><span class="marquee-star">✦</span></span>`
     ).join('');
 
-  // Duplicate for seamless loop
   track.innerHTML = build() + build();
 })();
 
@@ -302,12 +294,6 @@ const isTouch = window.matchMedia('(hover: none)').matches;
       const ry = (dx * MAX).toFixed(2);
       card.style.transform =
         `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
-
-      // For disc-card radial spotlight
-      const mx = ((e.clientX - rect.left) / rect.width) * 100;
-      const my = ((e.clientY - rect.top) / rect.height) * 100;
-      card.style.setProperty('--mx', mx + '%');
-      card.style.setProperty('--my', my + '%');
     });
 
     card.addEventListener('mouseleave', () => {
