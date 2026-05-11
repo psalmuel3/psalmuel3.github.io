@@ -12,3 +12,7 @@ assets/IMG_*.png
 assets/TraxQ.png
 assets/Flyer.png
 assets/1000522977.jpg
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
