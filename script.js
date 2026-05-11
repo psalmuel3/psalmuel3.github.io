@@ -26,42 +26,56 @@ const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)
 const isTouch = window.matchMedia('(hover: none)').matches;
 
 // ════════════════════════════════════════════
-// CUSTOM CURSOR
+// CUSTOM CURSOR (lightweight — no blend-modes, throttled)
 // ════════════════════════════════════════════
 (function initCursor() {
-  if (isTouch) return;
+  if (isTouch || prefersReducedMotion) return;
   const dot  = $('#cursorDot');
   const ring = $('#cursorRing');
   if (!dot || !ring) return;
 
   let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-  let dx = mx, dy = my; // ring trails
   let rx = mx, ry = my;
+  let dotX = mx, dotY = my;
+  let raf = null;
 
   window.addEventListener('mousemove', (e) => {
     mx = e.clientX; my = e.clientY;
-    dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%, -50%)`;
-  });
+    if (!raf) raf = requestAnimationFrame(frame);
+  }, { passive: true });
 
-  // ring lags slightly via rAF
   function frame() {
-    rx += (mx - rx) * 0.18;
-    ry += (my - ry) * 0.18;
-    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
-    requestAnimationFrame(frame);
+    // Dot snaps almost instantly; ring lags smoothly
+    dotX += (mx - dotX) * 0.65;
+    dotY += (my - dotY) * 0.65;
+    rx += (mx - rx) * 0.22;
+    ry += (my - ry) * 0.22;
+
+    dot.style.transform  = `translate3d(${dotX - 3}px, ${dotY - 3}px, 0)`;
+    ring.style.transform = `translate3d(${rx - 19}px, ${ry - 19}px, 0)`;
+
+    // Keep rAF alive while still settling
+    if (Math.abs(mx - rx) > 0.4 || Math.abs(my - ry) > 0.4) {
+      raf = requestAnimationFrame(frame);
+    } else {
+      raf = null;
+    }
   }
   frame();
 
-  // hover state on interactive elements
+  // hover state on interactive elements (delegated)
   const hoverSel = 'a, button, .filter-tab, .skill-tags span, .project-card, .disc-card, .skills-group, input, textarea, .contact-item, .hamburger';
+  let isHover = false;
   document.addEventListener('mouseover', (e) => {
-    if (e.target.closest && e.target.closest(hoverSel)) ring.classList.add('hover');
-  });
+    const match = e.target.closest && e.target.closest(hoverSel);
+    if (match && !isHover) { ring.classList.add('hover'); isHover = true; }
+  }, { passive: true });
   document.addEventListener('mouseout', (e) => {
-    if (e.target.closest && e.target.closest(hoverSel)) ring.classList.remove('hover');
-  });
+    if (!e.relatedTarget || !e.relatedTarget.closest || !e.relatedTarget.closest(hoverSel)) {
+      ring.classList.remove('hover'); isHover = false;
+    }
+  }, { passive: true });
 
-  // hide cursor when leaving window
   document.addEventListener('mouseleave', () => {
     dot.style.opacity = '0'; ring.style.opacity = '0';
   });
@@ -97,18 +111,17 @@ const isTouch = window.matchMedia('(hover: none)').matches;
 })();
 
 // ════════════════════════════════════════════
-// LIVE CLOCK (Lagos — UTC+1)
+// LIVE CLOCK (UTC)
 // ════════════════════════════════════════════
 (function initClock() {
   const el = $('#liveClock');
   if (!el) return;
   const tick = () => {
     const now = new Date();
-    const lagos = new Date(now.toLocaleString('en-US', { timeZone: 'Africa/Lagos' }));
-    const h = String(lagos.getHours()).padStart(2, '0');
-    const m = String(lagos.getMinutes()).padStart(2, '0');
-    const s = String(lagos.getSeconds()).padStart(2, '0');
-    el.textContent = `LAGOS · ${h}:${m}:${s}`;
+    const h = String(now.getUTCHours()).padStart(2, '0');
+    const m = String(now.getUTCMinutes()).padStart(2, '0');
+    const s = String(now.getUTCSeconds()).padStart(2, '0');
+    el.textContent = `UTC · ${h}:${m}:${s}`;
   };
   tick();
   setInterval(tick, 1000);
@@ -202,20 +215,28 @@ const isTouch = window.matchMedia('(hover: none)').matches;
 })();
 
 // ════════════════════════════════════════════
-// MARQUEE — build & duplicate
+// MARQUEE — build & duplicate (ticker style)
 // ════════════════════════════════════════════
 (function initMarquee() {
   const track = $('#marqueeTrack');
   if (!track) return;
 
   const items = [
-    'Design', 'Develop', 'Ship', 'Iterate', 'Shopify', 'SolidStart',
-    'Next.js', 'React', 'Firebase', 'Figma', 'CorelDRAW', 'SEO',
+    { tag: 'CODE',   label: 'Full-Stack Engineering' },
+    { tag: 'DESIGN', label: 'Brand & Visual Identity' },
+    { tag: 'ECOM',   label: 'Shopify Storefronts' },
+    { tag: 'SEO',    label: 'Search & Discoverability' },
+    { tag: 'SHIP',   label: 'Production Web Apps' },
+    { tag: 'CRAFT',  label: 'Polished Interfaces' },
   ];
 
   const build = () =>
-    items.map((label, i) =>
-      `<span class="marquee-item">${label}<span class="marquee-star">✦</span></span>`
+    items.map(({ tag, label }) =>
+      `<span class="marquee-item">
+         <span class="marquee-tag">${tag}</span>
+         <span class="marquee-label">${label}</span>
+         <span class="marquee-star">✦</span>
+       </span>`
     ).join('');
 
   // Duplicate for seamless loop
@@ -336,65 +357,6 @@ const isTouch = window.matchMedia('(hover: none)').matches;
         card.classList.toggle('hidden', !match);
       });
     });
-  });
-})();
-
-// ════════════════════════════════════════════
-// TEXT SCRAMBLE on hover
-// ════════════════════════════════════════════
-(function initScramble() {
-  if (prefersReducedMotion) return;
-  const els = $$('[data-scramble]');
-  if (!els.length) return;
-  const CHARS = '!<>-_\\/[]{}—=+*^?#________';
-
-  function scramble(el) {
-    const target = el.dataset.original || (el.dataset.original = el.textContent);
-    // Preserve inner HTML on first run by storing a marker
-    if (!el.dataset.html) el.dataset.html = el.innerHTML;
-
-    const text = el.textContent;
-    const len = text.length;
-    let frame = 0;
-    const queue = [];
-    for (let i = 0; i < len; i++) {
-      const from = text[i];
-      const to = text[i];
-      const start = Math.floor(Math.random() * 12);
-      const end = start + Math.floor(Math.random() * 12);
-      queue.push({ from, to, start, end, char: '' });
-    }
-    cancelAnimationFrame(el._scrambleRaf);
-
-    const run = () => {
-      let output = '';
-      let complete = 0;
-      for (let i = 0; i < queue.length; i++) {
-        const q = queue[i];
-        if (frame >= q.end) {
-          complete++;
-          output += q.to;
-        } else if (frame >= q.start) {
-          if (!q.char || Math.random() < 0.28) q.char = CHARS[Math.floor(Math.random() * CHARS.length)];
-          output += `<span style="color:var(--accent);">${q.char}</span>`;
-        } else {
-          output += q.from;
-        }
-      }
-      el.innerHTML = output;
-      if (complete === queue.length) {
-        // restore richer HTML if any
-        el.innerHTML = el.dataset.html;
-      } else {
-        frame++;
-        el._scrambleRaf = requestAnimationFrame(run);
-      }
-    };
-    run();
-  }
-
-  els.forEach((el) => {
-    el.addEventListener('mouseenter', () => scramble(el));
   });
 })();
 
