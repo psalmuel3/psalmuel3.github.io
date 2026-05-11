@@ -2,20 +2,19 @@
    Portfolio — script.js
    Samuel Korede Ogbara
    ════════════════════════════════════════════
-   - Custom cursor (dot + ring with magnetic hover)
+   - Custom cursor (dot + ring, throttled rAF)
    - Scroll progress bar
    - Sticky nav background on scroll
-   - Scroll-reveal (Intersection Observer)
+   - Live UTC clock
+   - Scroll-reveal (IntersectionObserver)
    - Typing animation (hero)
-   - Live Lagos clock
-   - Active nav link highlighting
-   - Hamburger / mobile menu
-   - Animated stat counters
    - Marquee track (auto-duplicated)
+   - Animated stat counters
    - 3D tilt on cards (mouse parallax)
    - Magnetic buttons
    - Project filter tabs
-   - Text scramble effect on hover
+   - Active nav link highlighting
+   - Hamburger / mobile menu
    - Contact form validation & success
    - Smooth anchor scrolling
 ═══════════════════════════════════════════════ */
@@ -125,14 +124,6 @@ const isTouch = window.matchMedia('(hover: none)').matches;
   };
   tick();
   setInterval(tick, 1000);
-})();
-
-// ════════════════════════════════════════════
-// FOOTER YEAR
-// ════════════════════════════════════════════
-(function initYear() {
-  const y = $('#footerYear');
-  if (y) y.textContent = new Date().getFullYear();
 })();
 
 // ════════════════════════════════════════════
@@ -399,16 +390,29 @@ const isTouch = window.matchMedia('(hover: none)').matches;
 })();
 
 // ════════════════════════════════════════════
-// CONTACT FORM
+// CONTACT FORM — submits via Web3Forms (free relay)
 // ════════════════════════════════════════════
 (function initContactForm() {
   const form = $('#contactForm');
   if (!form) return;
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const errorBox = $('#formError');
 
-  form.addEventListener('submit', (e) => {
+  const showError = (msg) => {
+    if (!errorBox) return;
+    errorBox.textContent = msg;
+    errorBox.classList.add('visible');
+  };
+  const clearError = () => {
+    if (!errorBox) return;
+    errorBox.textContent = '';
+    errorBox.classList.remove('visible');
+  };
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    clearError();
 
     const btn = form.querySelector('button[type="submit"]');
     const fields = [
@@ -431,21 +435,47 @@ const isTouch = window.matchMedia('(hover: none)').matches;
 
     if (!valid) return;
 
-    // Simulate send — replace with EmailJS / Formspree / Netlify forms
-    btn.disabled = true;
-    btn.classList.add('sent');
+    // Use the user-typed subject as the email subject line if provided
+    const subjectInput = form.querySelector('#subject_user');
+    const subjectHidden = form.querySelector('input[name="subject"]');
+    if (subjectInput && subjectHidden && subjectInput.value.trim()) {
+      subjectHidden.value = `Portfolio: ${subjectInput.value.trim()}`;
+    }
 
-    setTimeout(() => {
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok && data.success) {
+        btn.classList.add('sent');
+        form.reset();
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.classList.remove('sent');
+        }, 4500);
+      } else {
+        const msg = data.message || 'Something went wrong. Please email skogbarao3@gmail.com directly.';
+        showError(msg);
+        btn.disabled = false;
+      }
+    } catch (err) {
+      showError('Network error. Please check your connection or email skogbarao3@gmail.com directly.');
       btn.disabled = false;
-      btn.classList.remove('sent');
-      form.reset();
-    }, 4500);
+    }
   });
 
   // Clear error state as user types
   form.querySelectorAll('input, textarea').forEach((el) => {
     el.addEventListener('input', () => {
-      el.closest('.form-group').classList.remove('error');
+      const group = el.closest('.form-group');
+      if (group) group.classList.remove('error');
+      clearError();
     });
   });
 })();
