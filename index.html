@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Samuel Korede Ogbara — Full-Stack Developer & Freelancer</title>
+  <title>Samuel Korede Ogbara — Designer × Developer × E-Commerce Specialist</title>
+  <meta name="description" content="Multi-disciplinary creative and full-stack developer based in Lagos. 5+ years across graphic design, web development, and Shopify e-commerce. Currently building TraxQ — a production SaaS TMS." />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,22 +12,34 @@
 </head>
 <body>
 
+  <!-- ── CUSTOM CURSOR ── -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ── SCROLL PROGRESS ── -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
   <!-- ── NAV ── -->
   <header class="nav-header" id="navHeader">
     <nav class="nav container">
-      <a class="nav-logo" href="#hero">SO.</a>
+      <a class="nav-logo" href="#hero">SO<span class="dot"></span></a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
+        <li><a href="#disciplines">Work</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#experience">Experience</a></li>
-        <li><a href="#contact" class="nav-cta">Hire Me</a></li>
       </ul>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <div class="nav-right">
+        <div class="nav-clock" aria-hidden="true">
+          <span class="live-dot"></span>
+          <span id="liveClock">LAGOS · --:--</span>
+        </div>
+        <a href="#contact" class="nav-cta">Hire Me</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </nav>
   </header>
 
@@ -34,10 +47,11 @@
   <div class="mobile-menu" id="mobileMenu">
     <ul>
       <li><a href="#about">About</a></li>
+      <li><a href="#disciplines">Work</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Hire Me</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
 
@@ -47,41 +61,62 @@
          HERO
     ══════════════════════════════ -->
     <section id="hero" class="hero">
-      <div class="hero-orb hero-orb-1"></div>
-      <div class="hero-orb hero-orb-2"></div>
       <div class="container hero-content">
-        <p class="hero-greeting">Hello, I'm</p>
-        <h1 class="hero-name">Samuel <span class="gradient-text">Ogbara</span></h1>
+        <p class="hero-greeting">Hello — I'm</p>
+        <h1 class="hero-name" data-scramble>
+          Samuel <span class="gradient-text">Ogbara</span>
+        </h1>
         <p class="hero-title">
-          <span class="typed" id="typed"></span><span class="cursor">|</span>
+          <span class="typed" id="typed"></span><span class="cursor">_</span>
         </p>
         <p class="hero-desc">
-          Architecting the Logic. Polishing the Experience.
+          Multi-disciplinary creative and developer with 5+ years across
+          <strong>graphic design</strong>, <strong>full-stack development</strong>,
+          and <strong>Shopify e-commerce</strong>. I design and ship digital products
+          end-to-end — from brand identity to production web applications.
         </p>
         <div class="hero-btns">
-          <a href="#projects" class="btn btn-primary">View My Work</a>
-          <a href="#contact" class="btn btn-outline">Hire Me</a>
+          <a href="#projects" class="btn btn-primary">View My Work <span class="arrow">↗</span></a>
+          <a href="#contact" class="btn btn-outline">Let's Talk</a>
         </div>
-        <div class="hero-scroll" aria-hidden="true">
-          <span>scroll</span>
-          <div class="scroll-line"></div>
+
+        <div class="hero-meta">
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Based in</span>
+            <span class="hero-meta-val">Lagos, Nigeria</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Currently</span>
+            <span class="hero-meta-val">Building TraxQ</span>
+          </div>
+          <div class="hero-meta-item">
+            <span class="hero-meta-label">Availability</span>
+            <span class="hero-meta-val">Open to freelance</span>
+          </div>
         </div>
       </div>
     </section>
+
+    <!-- ── MARQUEE ── -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track" id="marqueeTrack">
+        <!-- populated by JS -->
+      </div>
+    </div>
 
     <!-- ══════════════════════════════
          ABOUT
     ══════════════════════════════ -->
     <section id="about" class="about section">
       <div class="container">
-        <p class="section-label reveal">About</p>
-        <h2 class="section-title reveal">A bit about me</h2>
+        <p class="section-label reveal">01 — About</p>
+        <h2 class="section-title reveal">Designer who codes. <br/><span class="accent">Developer with taste.</span></h2>
 
         <div class="about-grid">
           <div class="about-visual reveal">
             <div class="avatar-card">
               <div class="avatar-ring">
-                <div class="avatar-inner">SO</div>
+                <div class="avatar-inner"><span>SO</span></div>
               </div>
               <div class="availability-badge">
                 <span class="dot"></span> Available for work
@@ -91,39 +126,75 @@
 
           <div class="about-text reveal">
             <p>
-              I'm a <strong>Full-Stack Developer</strong> and
-              <strong>Freelancer</strong> with a passion for building products that are
-              not just functional, but delightful to use. I specialise in modern
-              JavaScript ecosystems and love turning complex problems into simple,
-              beautiful solutions.
+              I started out as a <strong>graphic designer</strong> in Lagos — flyers, banners,
+              brand identity — and slowly grew into web development, then e-commerce, and now
+              full-stack engineering. That path means I don't just write code that works;
+              I write code that <span class="accent">looks like it was designed on purpose</span>.
             </p>
             <p>
-              I architect robust backends and craft polished frontends — recently
-              delivering a full-featured trucking management system from the ground up.
-              I thrive working remotely with clients to bring their vision to life,
-              from initial concept through to deployment.
+              Today I'm a developer on <strong>TraxQ</strong> — a live SaaS Transportation
+              Management System built with SolidStart and Firebase — while still designing
+              Shopify storefronts, brand systems, and the occasional flyer. Five years in,
+              I bring a designer's eye to engineering and an engineer's rigor to design.
             </p>
 
             <div class="about-stats">
               <div class="stat">
-                <span class="stat-num">3+</span>
+                <span class="stat-num"><span class="accent" data-count="5">0</span>+</span>
                 <span class="stat-label">Years Experience</span>
               </div>
               <div class="stat">
-                <span class="stat-num">20+</span>
-                <span class="stat-label">Projects Delivered</span>
+                <span class="stat-num"><span class="accent" data-count="30">0</span>+</span>
+                <span class="stat-label">Projects Shipped</span>
               </div>
               <div class="stat">
-                <span class="stat-num">10+</span>
+                <span class="stat-num"><span class="accent" data-count="15">0</span>+</span>
                 <span class="stat-label">Happy Clients</span>
+              </div>
+              <div class="stat">
+                <span class="stat-num"><span class="accent" data-count="3">0</span></span>
+                <span class="stat-label">Disciplines</span>
               </div>
             </div>
 
             <div class="about-actions">
-              <a href="#contact" class="btn btn-primary">Let's Talk</a>
-              <a href="#" class="btn btn-ghost" download>Download CV</a>
+              <a href="#contact" class="btn btn-primary">Let's Build Something</a>
+              <a href="https://github.com/psalmuel3" target="_blank" rel="noopener" class="btn btn-ghost">GitHub ↗</a>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════
+         DISCIPLINES — What I Do
+    ══════════════════════════════ -->
+    <section id="disciplines" class="disciplines section">
+      <div class="container">
+        <p class="section-label reveal">02 — What I Do</p>
+        <h2 class="section-title reveal">Three crafts, <span class="accent">one practice.</span></h2>
+
+        <div class="disc-grid">
+          <article class="disc-card reveal" data-tilt>
+            <p class="disc-num">/ 01</p>
+            <h3>Graphic Design</h3>
+            <p>Brand identity, print, social, and visual systems. Five years working with Lagos businesses on flyers, banners, and brand assets that actually convert.</p>
+            <p class="disc-tools">CorelDRAW · Photoshop · Figma · Canva</p>
+          </article>
+
+          <article class="disc-card reveal" data-tilt>
+            <p class="disc-num">/ 02</p>
+            <h3>Full-Stack Development</h3>
+            <p>Production web applications with modern stacks. Currently shipping features on TraxQ — a multi-tenant SaaS TMS — across SolidStart, Firebase, and Stripe.</p>
+            <p class="disc-tools">React · Next.js · SolidJS · Node · Firebase</p>
+          </article>
+
+          <article class="disc-card reveal" data-tilt>
+            <p class="disc-num">/ 03</p>
+            <h3>E-Commerce & SEO</h3>
+            <p>Shopify storefronts designed to sell. Theme customization, conversion-focused product pages, on-page SEO and Search Console setup for organic growth.</p>
+            <p class="disc-tools">Shopify · Wix · Search Console · Analytics</p>
+          </article>
         </div>
       </div>
     </section>
@@ -133,58 +204,126 @@
     ══════════════════════════════ -->
     <section id="projects" class="projects section">
       <div class="container">
-        <p class="section-label reveal">Work</p>
-        <h2 class="section-title reveal">Featured Projects</h2>
+        <div class="projects-head">
+          <div>
+            <p class="section-label reveal">03 — Selected Work</p>
+            <h2 class="section-title reveal">Featured <span class="accent">Projects</span></h2>
+          </div>
+          <div class="filter-tabs reveal" role="tablist">
+            <button class="filter-tab active" data-filter="all">All</button>
+            <button class="filter-tab" data-filter="dev">Development</button>
+            <button class="filter-tab" data-filter="ecom">E-Commerce</button>
+            <button class="filter-tab" data-filter="design">Design</button>
+          </div>
+        </div>
 
-        <div class="projects-grid">
+        <div class="projects-grid" id="projectsGrid">
 
-          <article class="project-card reveal">
+          <article class="project-card reveal" data-tilt data-cat="dev">
             <div class="project-thumb">
-              <span class="project-thumb-label">TMS</span>
+              <span class="project-cat">Development</span>
+              <span class="project-status"><span class="dot"></span>Live</span>
+              <span class="project-thumb-label">Trax<span class="accent">Q</span></span>
             </div>
             <div class="project-body">
-              <h3>Transport Management System</h3>
-              <p>A full-featured trucking TMS dashboard — load dispatch, driver management, real-time scheduling, invoicing, and Firebase integration.</p>
+              <h3>TraxQ — Transportation Management System</h3>
+              <p>Production SaaS for trucking dispatch: real-time load tracking, driver & carrier management, automated BOLs and invoices, Stripe-powered billing, and AI-assisted document parsing.</p>
               <div class="project-tags">
-                <span>SolidJS</span><span>TypeScript</span><span>Firebase</span><span>Panda CSS</span>
+                <span>SolidStart</span><span>Firebase</span><span>Stripe</span><span>Cloudflare R2</span><span>FMCSA</span>
               </div>
               <div class="project-links">
-                <a href="#" class="btn-link">Live Demo ↗</a>
-                <a href="#" class="btn-link muted">GitHub ↗</a>
+                <a href="#" class="btn-link">Live Demo →</a>
+                <a href="#" class="btn-link muted">Case Study →</a>
               </div>
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal" data-tilt data-cat="ecom">
             <div class="project-thumb">
-              <span class="project-thumb-label">SaaS</span>
+              <span class="project-cat">E-Commerce</span>
+              <span class="project-thumb-label">Shop<span class="accent">ify</span></span>
             </div>
             <div class="project-body">
-              <h3>SaaS Analytics Dashboard</h3>
-              <p>A multi-tenant analytics platform with real-time data visualisation, role-based access control, and Stripe subscription billing.</p>
+              <h3>Shopify Storefront — Lifestyle Brand</h3>
+              <p>End-to-end Shopify build: theme customization, conversion-focused product pages, on-page SEO, and Search Console setup. Improved organic traffic and store conversion noticeably.</p>
               <div class="project-tags">
-                <span>React</span><span>Node.js</span><span>PostgreSQL</span><span>Stripe</span>
+                <span>Shopify</span><span>Liquid</span><span>SEO</span><span>Analytics</span>
               </div>
               <div class="project-links">
-                <a href="#" class="btn-link">Live Demo ↗</a>
-                <a href="#" class="btn-link muted">GitHub ↗</a>
+                <a href="#" class="btn-link">Live Store →</a>
+                <a href="#" class="btn-link muted">Breakdown →</a>
               </div>
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal" data-tilt data-cat="design">
             <div class="project-thumb">
-              <span class="project-thumb-label">PWA</span>
+              <span class="project-cat">Brand Identity</span>
+              <span class="project-thumb-label">Brand<span class="accent">·</span>System</span>
             </div>
             <div class="project-body">
-              <h3>Mobile-First Progressive Web App</h3>
-              <p>A responsive PWA featuring offline support, push notifications, and a custom design system built entirely from scratch.</p>
+              <h3>Brand Identity & Visual System</h3>
+              <p>Full brand identity for a Lagos-based business: logo system, color palette, type, print collateral (flyers, banners), and social templates — all built in CorelDRAW and Photoshop.</p>
               <div class="project-tags">
-                <span>Next.js</span><span>Tailwind CSS</span><span>PWA</span><span>Supabase</span>
+                <span>CorelDRAW</span><span>Photoshop</span><span>Brand</span><span>Print</span>
               </div>
               <div class="project-links">
-                <a href="#" class="btn-link">Live Demo ↗</a>
-                <a href="#" class="btn-link muted">GitHub ↗</a>
+                <a href="#" class="btn-link">View Case →</a>
+                <a href="#" class="btn-link muted">Behance →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-tilt data-cat="dev">
+            <div class="project-thumb">
+              <span class="project-cat">Web App</span>
+              <span class="project-thumb-label">Next<span class="accent">.</span>js</span>
+            </div>
+            <div class="project-body">
+              <h3>Multi-Tenant Analytics Dashboard</h3>
+              <p>Role-based access, real-time charts, and subscription billing built with Next.js and Postgres. Designed and shipped solo for a client pilot.</p>
+              <div class="project-tags">
+                <span>Next.js</span><span>PostgreSQL</span><span>Stripe</span><span>Tailwind</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn-link">Live Demo →</a>
+                <a href="#" class="btn-link muted">GitHub →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-tilt data-cat="ecom">
+            <div class="project-thumb">
+              <span class="project-cat">SEO + Store</span>
+              <span class="project-thumb-label">SEO<span class="accent">+</span></span>
+            </div>
+            <div class="project-body">
+              <h3>SEO & Conversion Optimization</h3>
+              <p>On-page SEO, keyword research, Google Search Console setup, and conversion audits for multiple Shopify clients. Documented playbook handed off post-engagement.</p>
+              <div class="project-tags">
+                <span>SEO</span><span>Search Console</span><span>Shopify</span><span>Audit</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn-link">Report Sample →</a>
+                <a href="#" class="btn-link muted">Process →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal" data-tilt data-cat="design">
+            <div class="project-thumb">
+              <span class="project-cat">Print & Social</span>
+              <span class="project-thumb-label">Print<span class="accent">·</span>Set</span>
+            </div>
+            <div class="project-body">
+              <h3>Print & Social Asset Library</h3>
+              <p>Years of flyer, banner, and social-card design work for businesses across Lagos. Recurring templates, brand-consistent collateral, and quick-turn campaign assets.</p>
+              <div class="project-tags">
+                <span>CorelDRAW</span><span>Photoshop</span><span>Canva</span><span>Print</span>
+              </div>
+              <div class="project-links">
+                <a href="#" class="btn-link">Gallery →</a>
+                <a href="#" class="btn-link muted">Selected →</a>
               </div>
             </div>
           </article>
@@ -192,7 +331,7 @@
         </div>
 
         <div class="projects-more reveal">
-          <a href="https://github.com/psalmuel3" target="_blank" rel="noopener" class="btn btn-outline">View All Projects on GitHub ↗</a>
+          <a href="https://github.com/psalmuel3" target="_blank" rel="noopener" class="btn btn-outline">All Projects on GitHub <span class="arrow">↗</span></a>
         </div>
       </div>
     </section>
@@ -202,54 +341,81 @@
     ══════════════════════════════ -->
     <section id="skills" class="skills section">
       <div class="container">
-        <p class="section-label reveal">Expertise</p>
-        <h2 class="section-title reveal">Skills & Technologies</h2>
+        <p class="section-label reveal">04 — Toolkit</p>
+        <h2 class="section-title reveal">Skills & <span class="accent">Tools</span></h2>
 
         <div class="skills-grid">
-          <div class="skills-group reveal">
-            <div class="skills-group-icon">01 / Client</div>
-            <h3>Frontend</h3>
+          <div class="skills-group reveal" data-tilt>
+            <div class="skills-head">
+              <h3>Graphic <span class="accent">Design</span></h3>
+              <span class="skills-num">/ 01</span>
+            </div>
+            <div class="skill-tags">
+              <span>CorelDRAW</span>
+              <span>Adobe Photoshop</span>
+              <span>Figma</span>
+              <span>Canva</span>
+              <span>Brand Identity</span>
+              <span>Print</span>
+              <span>Social Design</span>
+            </div>
+          </div>
+
+          <div class="skills-group reveal" data-tilt>
+            <div class="skills-head">
+              <h3>Web & <span class="accent">Full-Stack</span></h3>
+              <span class="skills-num">/ 02</span>
+            </div>
             <div class="skill-tags">
               <span>HTML5</span>
               <span>CSS3</span>
-              <span>JavaScript (ES6+)</span>
+              <span>JavaScript</span>
               <span>TypeScript</span>
               <span>React</span>
-              <span>SolidJS</span>
               <span>Next.js</span>
-              <span>Tailwind CSS</span>
-              <span>Panda CSS</span>
-              <span>Figma</span>
-            </div>
-          </div>
-
-          <div class="skills-group reveal">
-            <div class="skills-group-icon">02 / Server</div>
-            <h3>Backend</h3>
-            <div class="skill-tags">
+              <span>SolidJS / SolidStart</span>
               <span>Node.js</span>
-              <span>Express</span>
-              <span>REST APIs</span>
-              <span>GraphQL</span>
+              <span>C++</span>
+              <span>Python</span>
               <span>Firebase</span>
-              <span>Supabase</span>
               <span>PostgreSQL</span>
-              <span>MongoDB</span>
+              <span>Tailwind</span>
+              <span>Panda CSS</span>
             </div>
           </div>
 
-          <div class="skills-group reveal">
-            <div class="skills-group-icon">03 / Stack</div>
-            <h3>Tools & Other</h3>
+          <div class="skills-group reveal" data-tilt>
+            <div class="skills-head">
+              <h3>E-Commerce <span class="accent">& SEO</span></h3>
+              <span class="skills-num">/ 03</span>
+            </div>
+            <div class="skill-tags">
+              <span>Shopify</span>
+              <span>Liquid</span>
+              <span>Theme Customization</span>
+              <span>Wix</span>
+              <span>Google Search Console</span>
+              <span>On-Page SEO</span>
+              <span>Keyword Research</span>
+              <span>Analytics</span>
+              <span>Conversion Optimization</span>
+            </div>
+          </div>
+
+          <div class="skills-group reveal" data-tilt>
+            <div class="skills-head">
+              <h3>Workflow <span class="accent">& Other</span></h3>
+              <span class="skills-num">/ 04</span>
+            </div>
             <div class="skill-tags">
               <span>Git & GitHub</span>
-              <span>Docker</span>
-              <span>CI/CD</span>
-              <span>Vitest</span>
-              <span>Playwright</span>
-              <span>Vercel</span>
-              <span>Linux</span>
-              <span>Agile / Scrum</span>
+              <span>Stripe</span>
+              <span>Cloudflare R2</span>
+              <span>CapCut</span>
+              <span>Microsoft Office</span>
+              <span>Agile</span>
+              <span>Remote Collaboration</span>
+              <span>Client Communication</span>
             </div>
           </div>
         </div>
@@ -261,8 +427,8 @@
     ══════════════════════════════ -->
     <section id="experience" class="experience section">
       <div class="container">
-        <p class="section-label reveal">Background</p>
-        <h2 class="section-title reveal">Experience</h2>
+        <p class="section-label reveal">05 — Background</p>
+        <h2 class="section-title reveal">Experience & <span class="accent">Education</span></h2>
 
         <div class="timeline">
 
@@ -270,15 +436,77 @@
             <div class="timeline-node"></div>
             <div class="timeline-card">
               <div class="timeline-meta">
-                <span class="timeline-date">2024 — 2026</span>
-                <span class="timeline-badge freelance">Freelance</span>
+                <span class="timeline-date">2025 — Present</span>
+                <span class="timeline-badge current">Current</span>
               </div>
               <h3>Full-Stack Developer</h3>
-              <p class="timeline-company">Trucking Development · Remote</p>
-              <p>Designed and built a comprehensive Transportation Management System (TMS) from the ground up — covering load dispatch, driver management, real-time scheduling, invoicing, carrier vetting, and Firebase integration.</p>
+              <p class="timeline-company">TraxQ Trucking · Remote</p>
+              <p>Build and maintain features for a production multi-tenant SaaS TMS used by trucking operators — load dispatch, driver management, carrier vetting, and invoicing.</p>
+              <ul>
+                <li>SolidStart on the frontend; Firebase (Firestore, Auth, Cloud Functions) on the backend</li>
+                <li>Integrations: Stripe billing, Cloudflare R2 file storage, FMCSA carrier verification</li>
+                <li>AI-assisted document parsing for BOLs, rate confirmations, and invoices</li>
+              </ul>
             </div>
           </div>
 
+          <div class="timeline-item reveal">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta">
+                <span class="timeline-date">2023 — Present</span>
+                <span class="timeline-badge freelance">Freelance</span>
+              </div>
+              <h3>Shopify & E-Commerce Specialist</h3>
+              <p class="timeline-company">Independent · Remote</p>
+              <p>Design and optimize Shopify storefronts for multiple clients — theme customization, conversion-focused product pages, and on-page SEO with Search Console setup.</p>
+              <ul>
+                <li>Theme customization and brand-consistent storefront design</li>
+                <li>On-page SEO, keyword research, and Search Console configuration</li>
+                <li>Storefront analytics, performance audits, and ongoing improvements</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta">
+                <span class="timeline-date">2022 — 2023</span>
+                <span class="timeline-badge">On-site</span>
+              </div>
+              <h3>Graphic Designer / Computer Operator</h3>
+              <p class="timeline-company">Elberaca Cybercafe, Lagos</p>
+              <p>Produced graphic design work for client branding, social media, and print. Managed daily business-center operations including typing, printing, scanning, and customer support.</p>
+            </div>
+          </div>
+
+          <div class="timeline-item reveal">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="timeline-meta">
+                <span class="timeline-date">2020 — 2022</span>
+                <span class="timeline-badge">On-site</span>
+              </div>
+              <h3>Graphic Designer / Computer Operator</h3>
+              <p class="timeline-company">Simmys Biz Ventures, Lagos</p>
+              <p>Designed flyers, banners, and branded materials for clients using CorelDRAW and Photoshop. Built advanced proficiency in Microsoft Office while running standard business-center services.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="education-row reveal">
+          <div class="edu-card">
+            <p class="edu-label">Education / Current</p>
+            <h4>B.Sc. Computer Science Education</h4>
+            <p>University of Ilorin · Expected 2027</p>
+          </div>
+          <div class="edu-card">
+            <p class="edu-label">Education / Secondary</p>
+            <h4>Senior Secondary Certificate</h4>
+            <p>De Modern Pace Schools · WAEC, NECO</p>
+          </div>
         </div>
       </div>
     </section>
@@ -288,33 +516,41 @@
     ══════════════════════════════ -->
     <section id="contact" class="contact section">
       <div class="container">
-        <p class="section-label reveal">Get in touch</p>
-        <h2 class="section-title reveal">Let's Work Together</h2>
+        <p class="section-label reveal">06 — Get in touch</p>
+        <h2 class="section-title reveal">Let's build <span class="accent">something good.</span></h2>
         <p class="contact-desc reveal">
-          Have a project in mind or just want to say hi? I'd love to hear from you.
+          Whether you need a Shopify storefront, a brand identity, or a production web app —
+          I'd love to hear about it. Reply within 24 hours.
         </p>
 
         <div class="contact-grid">
           <div class="contact-info reveal">
             <a class="contact-item" href="mailto:skogbarao3@gmail.com">
-              <span class="contact-icon">✉</span>
+              <span class="contact-icon">@</span>
               <div>
                 <p class="contact-label">Email</p>
-                <span>skogbarao3@gmail.com</span>
+                <span class="contact-val">skogbarao3@gmail.com</span>
               </div>
             </a>
-            <a class="contact-item" href="https://www.linkedin.com/in/samuel-ogbara-80ba3b3b7/" target="_blank" rel="noopener">
+            <a class="contact-item" href="https://wa.me/2349042008619" target="_blank" rel="noopener">
+              <span class="contact-icon">W</span>
+              <div>
+                <p class="contact-label">WhatsApp / Telegram</p>
+                <span class="contact-val">+234 904 200 8619</span>
+              </div>
+            </a>
+            <a class="contact-item" href="https://www.linkedin.com/in/samuel-ogbara03" target="_blank" rel="noopener">
               <span class="contact-icon">in</span>
               <div>
                 <p class="contact-label">LinkedIn</p>
-                <span>linkedin.com/in/samuel-ogbara</span>
+                <span class="contact-val">samuel-ogbara03</span>
               </div>
             </a>
             <a class="contact-item" href="https://github.com/psalmuel3" target="_blank" rel="noopener">
-              <span class="contact-icon">&lt;/&gt;</span>
+              <span class="contact-icon">&lt;&gt;</span>
               <div>
                 <p class="contact-label">GitHub</p>
-                <span>github.com/psalmuel3</span>
+                <span class="contact-val">psalmuel3</span>
               </div>
             </a>
           </div>
@@ -323,18 +559,25 @@
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" id="name" name="name" placeholder="Your name" required />
+              <span class="error-msg">Please enter your name</span>
             </div>
             <div class="form-group">
               <label for="email">Email</label>
               <input type="email" id="email" name="email" placeholder="your@email.com" required />
+              <span class="error-msg">Please enter a valid email</span>
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" placeholder="What's this about?" />
             </div>
             <div class="form-group">
               <label for="message">Message</label>
               <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+              <span class="error-msg">Don't leave me hanging — say a few words</span>
             </div>
             <button type="submit" class="btn btn-primary btn-full">
-              <span class="btn-text">Send Message</span>
-              <span class="btn-success" hidden>Message Sent ✓</span>
+              <span class="btn-text">Send Message <span class="arrow">↗</span></span>
+              <span class="btn-success">Message Sent ✓</span>
             </button>
           </form>
         </div>
@@ -346,9 +589,15 @@
   <!-- ── FOOTER ── -->
   <footer class="footer">
     <div class="container">
-      <a class="footer-logo" href="#hero">SO.</a>
-      <p>Designed & built by <span class="gradient-text">Samuel Korede Ogbara</span></p>
-      <p class="footer-sub">Open to opportunities worldwide · 2026</p>
+      <a class="footer-logo" href="#hero">SO<span class="dot"></span></a>
+      <p>Designed & built by <strong>Samuel Korede Ogbara</strong></p>
+      <div class="footer-social">
+        <a href="https://github.com/psalmuel3" target="_blank" rel="noopener" title="GitHub">GH</a>
+        <a href="https://www.linkedin.com/in/samuel-ogbara03" target="_blank" rel="noopener" title="LinkedIn">IN</a>
+        <a href="https://wa.me/2349042008619" target="_blank" rel="noopener" title="WhatsApp">WA</a>
+        <a href="mailto:skogbarao3@gmail.com" title="Email">@</a>
+      </div>
+      <p class="footer-sub">Lagos · Open Worldwide · © <span id="footerYear">2026</span></p>
     </div>
   </footer>
 
